@@ -1,0 +1,285 @@
+#include<iostream>
+#include<string.h> 
+using namespace std;
+struct Student
+{
+int roll;
+char name[12];
+float sgpa;
+};
+	
+	
+	void linear(struct Student s[3],int n)
+	{
+	int i, sa, count=0;
+	cout<<"Enter the sgpa to search \t :";
+	cin>>sa;
+	 for(int i=0;i<n;i++)
+	 { if(s[i].sgpa==sa)
+	 	{ count++;
+	 	cout<<"Roll \t Name \t sgpa\n";
+	 cout<<" "<<s[i].name<<"\t"<<s[i].roll<<"\t"<<s[i].sgpa<<"\t";
+	 	}
+	 	}
+	 	cout<<"\nTotal record found = "<<count;
+	 }
+	 	
+	 	
+	 	
+	 	
+	 	
+	 void bubblesort(struct Student s[30],int n)
+	 {
+	    	
+	 	int temp;
+	 	float temp2 ;
+	 	char temp3[30];
+	 	
+	 	for(int i =0;i<n-1;i++){
+	 	
+	 	  for(int j=0;j<n-1-i;j++){
+	 	  
+	 	    if(s[j].roll>s[j+1].roll){
+	 	     
+	 	     temp = s[j].roll;
+	 	     s[j].roll = s[j+1].roll;
+	 	     s[j+1].roll=temp;
+	 	         
+	 	         
+	 	     temp2 = s[j].sgpa;
+	 	     s[j].sgpa = s[j+1].sgpa;
+	 	     s[j+1].sgpa=temp2;
+	 	         
+	 	      }
+	 	      strcpy(temp3,s[j].name);
+	 	      strcpy(s[j].name,s[j+1].name);
+	 	      strcpy(s[j+1].name,temp3);
+	 	      
+	 	      
+	 	      }
+	 	    }
+	 	    cout<<"Roll \t Name \t sgpa\n";
+	for(int i=0;i<n;i++)
+	{
+	cout<<"\t"<<s[i].roll<<"\t"<<s[i].name<<"\t"<<s[i].sgpa<<"\n";
+	}
+	 	    }
+	 	    
+	 	    
+	 
+	 
+	 void insertionSort(struct Student s[3],int n)
+	 {
+	    char temp[30];
+	    int temp1;
+	    float temp2;
+	    
+	    for(int i=1 ;i<n;i++)
+	    {
+	       
+	         strcpy(temp,s[i].name);
+	         temp1 = s[i].roll;
+	         temp2 = s[i].sgpa;
+	         
+	         int j= i-1;
+	         while (j>=0 && strcmp(s[j].name,temp)>0)
+	         {
+	                strcpy(s[j+1].name,s[j].name);
+	                s[j+1].roll = s[j].roll;
+	                s[j+1].sgpa = s[j].sgpa;
+	                j--;
+	                }
+	        
+	        strcpy(s[j+1].name,temp);
+	                s[j+1].roll = temp1;
+	                s[j+1].sgpa = temp2;        
+	                
+	             }
+	             
+	             cout<<"\nRoll \tName\t sgpa"<<endl;
+	             for(int i=0 ;i<n;i++){
+	               
+	                 cout<<s[i].roll<<"\t";
+	                 cout<<s[i].name<<"\t";
+	                 cout<<s[i].sgpa<<"\t\n";
+	                 
+	             }
+	             }
+	            
+	               
+	 	    
+	 
+void bsearch(struct Student s[3],int n)
+{
+  insertionSort(s,n);	   
+	 	    
+ int left,right,mid,flag=0;
+ char data[30];
+
+cout<<"Enter the name to search : ";
+cin>>data;
+left =0;
+right = n-1;
+
+while(left<=right)
+{
+   mid=(left+right)/2;
+   if(strcmp(data,s[mid].name)==0)
+   {
+     flag=1;
+    cout<<"\nRoll \tName\t sgpa"<<endl;
+    cout<<s[mid].roll<<"\t"<<s[mid].name<<"\t"<<s[mid].sgpa;
+     break;
+     }
+     
+     else if(strcmp(data,s[mid].name)<0)
+     {
+        right =mid-1;
+     } 	 
+	 	
+     else
+     {
+     left =mid+1;
+     }
+      } 
+      
+if(flag==0)
+{
+cout<<"record is not found";
+}
+}	
+
+
+
+int partition(struct Student s[30],int n,int lb,int ub)
+{
+	int start,end,temp2;
+	float pivot,temp1;
+	char temp3[30];
+	
+	pivot = s[lb].sgpa;
+	start =lb;
+	end =ub;
+	
+	while(start<end){
+	
+	 while(s[start].sgpa<=pivot)
+	   {
+	      start++;
+	      }
+	  while(s[end].sgpa>pivot)
+	  {
+	     end--;
+	     }
+	     
+	  if(start<end)
+	  {
+	     temp1=s[start].sgpa;
+	     s[start].sgpa = s[end].sgpa;
+	     s[end].sgpa = temp1;
+	     temp2=s[start].roll;
+	     s[start].roll = s[end].roll;
+	     s[end].roll = temp2;
+	     strcpy(temp3,s[start].name);
+	     strcpy(s[start].name,s[end].name);
+	     strcpy(s[end].name,temp3);
+	     }
+	     }
+	     
+	     temp1=s[lb].sgpa;
+	     s[lb].sgpa = s[end].sgpa;
+	     s[end].sgpa = temp1;
+	     temp2=s[lb].roll;
+	     s[lb].roll = s[end].roll;
+	     s[end].roll = temp2;
+	     strcpy(temp3,s[lb].name);
+	     strcpy(s[lb].name,s[end].name);
+	     strcpy(s[end].name,temp3);
+	return end;
+	}
+	 	
+	void quicksort(struct Student s[30],int n,int lb,int ub) 
+	{
+	
+	   int loc,i,count=0;
+	   if(lb<ub)
+	   {
+	   
+	       loc = partition(s,n,lb,ub);
+	       quicksort(s,n,lb,loc-1);
+	       quicksort(s,n,loc+1,ub);
+	       }
+	       
+	 cout<<"\n Top ten toppers are : " ;
+	 for(int i=n-1;i>=0;i--){
+	   count++;
+	   if(count>10) {
+	      break;
+	      }
+	      
+	      cout<<"\n"<<s[i].roll<<"\t"<<s[i].name<<"\t"<<s[i].sgpa;
+	      }
+	      }
+	       
+	 	
+	 	
+
+
+
+int main()
+{ 
+	struct Student s[3];
+	int n;
+	int choice;
+	
+	cout<<"Enter the total student :";
+	cin>>n;
+	
+	cout<<"\nEnter the\nRollno Name SGPA : \n";
+	for(int i=0;i<n;i++)
+	{
+	cin>>s[i].roll;
+	cin>>s[i].name;
+	cin>>s[i].sgpa;
+		}
+	
+
+	cout<<" Roll No  Name  SGPA \n ";
+	for(int i=0;i<n;i++)
+	{
+	cout<<s[i].roll<<"   "<<s[i].name<<"    "<<s[i].sgpa<<"\n";
+	}
+	
+	do
+	{
+	 cout<<"\n 1.linear sort( find information using sgpa) .";
+	 cout<<"\n 2.bubble sort (to arrange the rollno in accending) .";
+	 cout<<"\n 3.Insertion sort(arrange the name in alphabetical order) .";
+	 cout<<"\n 4.binary search (to find information using name )";
+	 cout<<"\n 5.Quick sort .";
+	 cout<<"\n Exit";
+	 cout<<"\n Enter your choice : ";
+	 cin>>choice;
+	 switch(choice)
+	 {
+	   case 1 : linear(s,n);
+	       break;
+	       
+	  case 2 : bubblesort(s,n);
+	       break;
+	       
+	  case 3 : insertionSort(s,n);
+	       break;
+	       
+	  case 4 : bsearch(s,n);
+	       break;
+	       
+	 case 5 : quicksort(s,n,0,n-1);
+	     break;
+	 
+	 }
+	 }
+	 while(choice != 6);
+	 return 0;
+	 
+		};
